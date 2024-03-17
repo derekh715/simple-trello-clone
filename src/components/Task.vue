@@ -9,8 +9,8 @@
       </v-col>
       <v-col cols="3">
         <v-row justify="space-around" dense>
-          <v-icon icon="mdi-trash-can"</v-icon>
-          <v-icon icon="mdi-pencil"</v-icon>
+          <v-icon icon="mdi-trash-can" class="pointer-cursor"></v-icon>
+          <v-icon icon="mdi-pencil" class="pointer-cursor"></v-icon>
         </v-row>
       </v-col>
     </v-row>

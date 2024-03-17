@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <div class="text-h4 font-weight-bold my-4">Boards</div>
     <v-row>
       <v-col v-for="board in boards" cols="4">
         <BoardCard :board="board" />
