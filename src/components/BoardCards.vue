@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col v-for="board in boards" cols="4">
-        <Board :board="board" />
+        <BoardCard :board="board" />
       </v-col>
     </v-row>
   </v-container>

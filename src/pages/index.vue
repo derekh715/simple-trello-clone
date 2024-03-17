@@ -1,5 +1,5 @@
 <template>
-  <Boards />
+  <BoardCards />
 </template>
 
 <script lang="ts" setup>
