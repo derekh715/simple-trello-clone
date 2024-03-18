@@ -7,12 +7,14 @@ export interface KanbanState {
 export interface Board {
   id: string;
   name: string;
+  description: string;
   lists: List[];
 }
 
 export interface List {
   id: string;
   name: string;
+  description: string;
   tasks: Task[];
 }
 
@@ -29,11 +31,13 @@ const exampleKanban: KanbanState = {
   boards: [
     {
       name: "Example",
+      description: "",
       id: "board-id",
       lists: [
         {
           name: "List #1",
           id: "list-id",
+          description: "",
           tasks: [
             {
               id: "task-id",

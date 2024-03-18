@@ -20,5 +20,5 @@
 <script setup lang="ts">
 import { Task } from "@/store/kanban";
 
-const props = defineProps<{ task: Task; listId: string }>();
+defineProps<{ task: Task; listId: string }>();
 </script>

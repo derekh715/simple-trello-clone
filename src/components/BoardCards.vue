@@ -5,6 +5,7 @@
       <v-col v-for="board in boards" cols="4">
         <BoardCard :board="board" />
       </v-col>
+      <AddBoard />
     </v-row>
   </v-container>
 </template>

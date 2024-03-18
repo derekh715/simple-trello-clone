@@ -19,9 +19,7 @@
       <v-col v-for="list in board.lists" cols="4">
         <List :list="list" />
       </v-col>
-      <v-col>
-        <v-btn flat ripple prepend-icon="mdi-plus">Add New List</v-btn>
-      </v-col>
+      <AddList />
     </v-row>
   </v-container>
 </template>
@@ -30,6 +28,6 @@
 import { Board } from "@/store/kanban";
 import { useRouter } from "vue-router";
 
-const props = defineProps<{ board: Board }>();
+defineProps<{ board: Board }>();
 const router = useRouter();
 </script>
