@@ -15,11 +15,15 @@
       </div>
     </div>
 
+    <p class="text-white my-4 text-h6">{{ board.description }}</p>
+
     <v-row>
       <v-col v-for="list in board.lists" cols="4">
         <List :list="list" />
       </v-col>
-      <AddList />
+      <v-col cols="4">
+        <AddList />
+      </v-col>
     </v-row>
 
     <v-row class="position-absolute right-0 top-0 d-flex">

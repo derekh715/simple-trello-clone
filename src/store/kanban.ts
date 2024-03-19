@@ -9,6 +9,7 @@ export interface Board {
   id: string;
   name: string;
   description: string;
+  created: Date;
   lists: List[];
 }
 
@@ -16,6 +17,7 @@ export interface List {
   id: string;
   name: string;
   description: string;
+  created: Date;
   tasks: Task[];
 }
 
@@ -25,6 +27,7 @@ export interface Task {
   id: string;
   name: string;
   description?: string;
+  created: Date;
   status: Status;
 }
 
@@ -101,7 +104,11 @@ export const useKanbanStore = defineStore("kanban", {
   },
 
   actions: {
-    addTask(boardId: string, listId: string, task: Omit<Task, "id">) {
+    addTask(
+      boardId: string,
+      listId: string,
+      task: Omit<Task, "id" | "created">
+    ) {
       const board = this.boards.find(({ id }) => boardId === id);
       if (board) {
         const list = board.lists.find(({ id }) => listId === id);
@@ -109,6 +116,7 @@ export const useKanbanStore = defineStore("kanban", {
           const newTask: Task = {
             ...task,
             id: nanoid(),
+            created: new Date(),
           };
           list.tasks.push(newTask);
           return newTask;
@@ -154,32 +162,38 @@ export const useKanbanStore = defineStore("kanban", {
 
     rearrangeTaskToList(
       boardId: string,
-      listId: string,
+      oldListId: string,
       taskId: string,
       newListId: string,
       newIndex: number
     ) {
-      const taskItem = findTaskIndex(this.boards, boardId, listId, taskId)!;
+      const taskItem = findTaskIndex(this.boards, boardId, oldListId, taskId)!;
 
-      const listItem = findListIndex(this.boards, boardId, newListId);
+      const oldListBag = findListIndex(this.boards, boardId, oldListId);
+      const newListBag = findListIndex(this.boards, boardId, newListId);
 
-      if (taskItem && listItem) {
-        const list = listItem.board.lists[listItem.listIndex];
-        // dont' use >= so that we can push an element at the end of a list
-        if (newIndex < 0 || newIndex > list.tasks.length) {
-          return;
-        }
-        const [task] = taskItem.list.tasks.splice(taskItem.taskIndex, 1);
-        list.tasks.splice(newIndex, 0, task);
+      if (!newListBag || !oldListBag || !taskItem) {
+        return;
       }
+
+      const oldList = oldListBag.board.lists[oldListBag.listIndex];
+      const newList = newListBag.board.lists[newListBag.listIndex];
+
+      // dont' use >= so that we can push an element at the end of a list
+      if (newIndex < 0 || newIndex > newList.tasks.length) {
+        return;
+      }
+      const [task] = oldList.tasks.splice(taskItem.taskIndex, 1);
+      newList.tasks.splice(newIndex, 0, task);
     },
 
-    addList(boardId: string, list: Omit<List, "id" | "tasks">) {
+    addList(boardId: string, list: Omit<List, "id" | "tasks" | "created">) {
       const board = this.boards.find(({ id }) => boardId === id);
       if (board) {
         const newList: List = {
           ...list,
           id: nanoid(),
+          created: new Date(),
           tasks: [],
         };
         board.lists.push(newList);
@@ -206,11 +220,12 @@ export const useKanbanStore = defineStore("kanban", {
       }
     },
 
-    addBoard(board: Omit<Board, "id" | "lists">) {
+    addBoard(board: Omit<Board, "id" | "lists" | "created">) {
       const newBoard: Board = {
         ...board,
         id: nanoid(),
         lists: [],
+        created: new Date(),
       };
       this.boards.push(newBoard);
       return newBoard;

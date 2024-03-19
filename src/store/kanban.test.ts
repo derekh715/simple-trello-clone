@@ -155,18 +155,63 @@ describe("tasks", async () => {
     expect(kanban.boards[0].lists[0].tasks[0].name).toBe("2");
   });
 
-  it("should move task to a new list", () => {
+  it("should rearrange tasks with more items", () => {
     const kanban = useKanbanStore();
-    const board = kanban.addBoard({ description: "", name: "" });
-    const l1 = kanban.addList(board.id, { description: "", name: "2" })!;
-    const l2 = kanban.addList(board.id, { description: "", name: "2" })!;
-    const task = kanban.addTask(board.id, l1.id, {
+    const { list, board } = getList(kanban);
+    for (let i = 0; i < 10; i++) {
+      kanban.addTask(board.id, list.id, {
+        name: "placeholder",
+        status: "finished",
+        description: "",
+      });
+    }
+    const task = kanban.addTask(board.id, list.id, {
       name: "1",
       status: "finished",
       description: "",
     })!;
-    expect(kanban.boards[0].lists).toHaveLength(2);
-    kanban.rearrangeTaskToList(board.id, l1.id, task.id, l2.id, 0);
-    expect(kanban.boards[0].lists[1].tasks[0]).toEqual(task);
+    expect(kanban.boards[0].lists[0].tasks).toHaveLength(11);
+    for (let i = 0; i <= 10; i++) {
+      kanban.rearrangeTask(board.id, list.id, task.id, i);
+      expect(kanban.boards[0].lists[0].tasks[i].name).toBe("1");
+    }
+  });
+
+  it("should move task to a new list", () => {
+    const kanban = useKanbanStore();
+    const board = kanban.addBoard({ description: "", name: "" });
+    const l1 = kanban.addList(board.id, { description: "", name: "1" })!;
+    for (let i = 0; i < 20; i++) {
+      kanban.addTask(board.id, l1.id, {
+        name: `Task #${i} on List 1`,
+        status: "finished",
+        description: "",
+      });
+    }
+
+    const l2 = kanban.addList(board.id, { description: "", name: "2" })!;
+    const task = kanban.addTask(board.id, l2.id, {
+      name: "okay",
+      status: "finished",
+      description: "",
+    })!;
+
+    // try moving item on list2 to different places in list1
+    for (let i = 0; i < 20; i++) {
+      kanban.rearrangeTaskToList(board.id, l2.id, task.id, l1.id, i);
+      expect(kanban.boards[0].lists[0].tasks[i]).toEqual(task);
+      kanban.rearrangeTaskToList(board.id, l1.id, task.id, l2.id, 0);
+    }
+
+    // now try moving all items on list1 to list2
+    const taskIds = [task.id];
+    const tasks = [...kanban.boards[0].lists[0].tasks];
+    for (let i = 0; i < tasks.length; i++) {
+      let taskId = tasks[i].id;
+      taskIds.push(taskId);
+      kanban.rearrangeTaskToList(board.id, l1.id, taskId, l2.id, 0);
+    }
+    const list1Ids = kanban.boards[0].lists[1].tasks.map((task) => task.id);
+    expect(list1Ids.reverse()).toEqual(taskIds);
   });
 });

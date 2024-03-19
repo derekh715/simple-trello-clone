@@ -31,14 +31,12 @@
       </v-card-text>
     </v-card>
   </v-dialog>
-  <v-col cols="4">
-    <v-card
-      link
-      prepend-icon="mdi-plus"
-      title="Add New List"
-      @click="dialog = true"
-    ></v-card>
-  </v-col>
+  <v-card
+    link
+    prepend-icon="mdi-plus"
+    title="Add New List"
+    @click="dialog = true"
+  ></v-card>
 </template>
 
 <script setup lang="ts">
