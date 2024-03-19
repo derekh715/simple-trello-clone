@@ -118,19 +118,21 @@ describe("tasks", async () => {
 
   it("should remove task", () => {
     const kanban = useKanbanStore();
-    const newBoard = createBoard(kanban);
-    const newList = createList(kanban, newBoard);
-    kanban.removeList(newBoard.id, newList!.id);
-    expect(kanban.boards[0].lists).toHaveLength(0);
+    const newBoard = createBoard(kanban)!;
+    const newList = createList(kanban, newBoard)!;
+    const task = kanban.addTask(newBoard.id, newList.id, expectedTask)!;
+    kanban.removeTask(newBoard.id, newList.id, task.id);
+    expect(kanban.boards[0].lists[0].tasks).toHaveLength(0);
   });
 
   it("should change task", () => {
     const kanban = useKanbanStore();
     const newBoard = createBoard(kanban);
     const newList = createList(kanban, newBoard)!;
-    const changedList: List = { ...newList, name: "changed" };
-    kanban.changeList(newBoard.id, changedList);
-    expect(kanban.boards[0].lists[0].name).toBe("changed");
+    const newTask = kanban.addTask(newBoard.id, newList.id, expectedTask)!;
+    const changedTask: Task = { ...newTask, name: "changed" };
+    kanban.changeTask(newBoard.id, newList.id, changedTask);
+    expect(kanban.boards[0].lists[0].tasks[0].name).toBe("changed");
   });
 
   it("should rearrange tasks", () => {

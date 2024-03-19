@@ -1,17 +1,15 @@
 <template>
-  <v-card flat>
+  <v-card flat class="py-2">
     <v-row align="center">
-      <v-col cols="9">
-        <v-card-text>
-          <h3>{{ task.name }}</h3>
-          <p>{{ task.description }}</p>
-        </v-card-text>
+      <v-col cols="8">
+        <h3>{{ task.name }}</h3>
+        <p>{{ task.description }}</p>
       </v-col>
-      <v-col cols="3">
-        <v-row justify="space-around" dense>
-          <v-icon icon="mdi-trash-can" class="pointer-cursor"></v-icon>
-          <v-icon icon="mdi-pencil" class="pointer-cursor"></v-icon>
-        </v-row>
+      <v-col cols="4">
+        <div class="d-flex ga-3 justify-end items-center">
+          <EditTask :task="task" :listId="listId" />
+          <RemoveTask :task="task" :listId="listId" />
+        </div>
       </v-col>
     </v-row>
   </v-card>

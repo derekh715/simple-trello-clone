@@ -1,14 +1,26 @@
 <template>
   <v-card tonal>
-    <v-card-title>{{ list.name }}</v-card-title>
+    <v-card-title class="mb-4 mt-2">
+      <div class="d-flex justify-space-between align-center">
+        <span>
+          {{ list.name }}
+        </span>
+        <div class="d-flex justify-end align-center ga-4">
+          <EditList :list="list" />
+          <RemoveList :list="list" />
+        </div>
+      </div>
+    </v-card-title>
 
-    <v-row dense class="mx-2">
-      <v-col v-for="task in list.tasks" cols="12">
-        <Task :task="task" :listId="list.id" />
-      </v-col>
-    </v-row>
+    <v-card-text>
+      <v-row dense>
+        <v-col v-for="task in list.tasks" cols="12">
+          <Task :task="task" :listId="list.id" />
+        </v-col>
+      </v-row>
 
-    <AddTask :list="list" />
+      <AddTask :list="list" />
+    </v-card-text>
   </v-card>
 </template>
 

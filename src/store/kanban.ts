@@ -126,8 +126,8 @@ export const useKanbanStore = defineStore("kanban", {
       }
     },
 
-    changeTask(boardId: string, listId: string, taskId: string, newTask: Task) {
-      const items = findTaskIndex(this.boards, boardId, listId, taskId)!;
+    changeTask(boardId: string, listId: string, newTask: Task) {
+      const items = findTaskIndex(this.boards, boardId, listId, newTask.id)!;
       if (items) {
         const { taskIndex, list } = items;
         list.tasks[taskIndex] = newTask;

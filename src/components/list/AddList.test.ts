@@ -66,7 +66,7 @@ describe("AddList", () => {
     expect(warningText).toBeTruthy();
   });
 
-  it("should not add board if inputs are too long", async () => {
+  it("should not add list if inputs are too long", async () => {
     const screen = await wrap();
     const name = screen.getByLabelText(/name/i);
     await fireEvent.update(

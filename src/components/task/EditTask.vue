@@ -1,14 +1,15 @@
 <template>
-  <v-btn
-    variant="plain"
-    prepend-icon="mdi-plus"
+  <v-icon
+    icon="mdi-pencil"
+    class="cursor-pointer"
+    aria-label="edit task"
+    aria-hidden="false"
+    role="img"
     @click="dialog = true"
-    class="mt-4 pl-0"
-    >Add New Task</v-btn
-  >
+  ></v-icon>
   <v-dialog v-model="dialog" width="auto">
     <v-card
-      title="Add New Task"
+      title="Edit Task"
       prepend-icon="mdi-note"
       class="px-5 py-8"
       min-width="400"
@@ -48,13 +49,13 @@
 </template>
 
 <script lang="ts" setup>
-import { List, Status, useKanbanStore } from "@/store/kanban";
+import { Status, Task, useKanbanStore } from "@/store/kanban";
 import { rules } from "@/utils/form";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { SubmitEventPromise } from "vuetify";
 
-const props = defineProps<{ list: List }>();
+const props = defineProps<{ listId: string; task: Task }>();
 
 const dialog = ref(false);
 const nameModel = defineModel("name", { default: "" });
@@ -63,12 +64,17 @@ const statusModel = defineModel("status", { default: "unfinished" });
 const route = useRoute();
 const kanban = useKanbanStore();
 
+nameModel.value = props.task.name;
+descModel.value = props.task.description || "";
+statusModel.value = props.task.status;
+
 async function addNewTask(event: SubmitEventPromise) {
   const result = await event;
   if (!result.valid) {
     return;
   }
-  kanban.addTask(route.params.id as string, props.list.id, {
+  kanban.changeTask(route.params.id as string, props.listId, {
+    ...props.task,
     name: nameModel.value,
     description: descModel.value,
     status: statusModel.value as Status,
