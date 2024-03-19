@@ -75,6 +75,10 @@ export const useKanbanStore = defineStore("kanban", {
     };
   },
 
+  persist: {
+    key: "kanban-storage",
+  },
+
   getters: {
     getBoard(state) {
       return function (boardId: string) {

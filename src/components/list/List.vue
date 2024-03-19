@@ -2,14 +2,13 @@
   <v-card tonal>
     <v-card-title class="mt-2">
       <div class="d-flex justify-space-between align-center">
-        <span>
-          {{ list.name }}
-        </span>
+        <p class="text-h6">{{ list.name }}</p>
         <div class="d-flex justify-end align-center ga-4">
           <EditList :list="list" />
           <RemoveList :list="list" />
         </div>
       </div>
+      <p class="text-caption mt-4 mb-1">{{ list.description }}</p>
     </v-card-title>
 
     <v-card-text>

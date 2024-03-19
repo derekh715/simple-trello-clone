@@ -2,8 +2,8 @@
   <div v-if="board">
     <Board :board="board" />
   </div>
-  <div v-else>
-    <h1>Sorry! This board does not exist!</h1>
+  <div v-else class="d-flex justify-center align-center h-75">
+    <h1 class="text-h5">Sorry! This board does not exist!</h1>
   </div>
 </template>
 

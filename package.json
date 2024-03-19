@@ -16,6 +16,7 @@
     "date-fns": "^3.6.0",
     "nanoid": "^5.0.7",
     "pinia": "^2.2.2",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
     "vue-smooth-dnd": "^0.8.1",

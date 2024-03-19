@@ -1,6 +1,8 @@
 <template>
   <v-app-bar flat dense color="blue-darken-2">
-    <v-app-bar-title class="font-bold cursor-pointer" @click="router.push('/')"
+    <v-app-bar-title
+      class="font-weight-bold cursor-pointer"
+      @click="router.push('/')"
       >Trello Clone</v-app-bar-title
     >
     <v-btn icon>
