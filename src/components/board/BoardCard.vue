@@ -7,7 +7,6 @@
 <script setup lang="ts">
 import { Board } from "@/store/kanban";
 import { useRouter } from "vue-router";
-
 const props = defineProps<{ board: Board }>();
 
 const router = useRouter();

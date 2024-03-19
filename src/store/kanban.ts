@@ -67,7 +67,37 @@ function findListIndex(boards: Board[], boardId: string, listId: string) {
 
 export const useKanbanStore = defineStore("kanban", {
   state: (): KanbanState => {
-    return { boards: [] };
+    return {
+      boards: [],
+    };
+  },
+
+  getters: {
+    getBoard(state) {
+      return function (boardId: string) {
+        return state.boards.find(({ id }) => boardId === id);
+      };
+    },
+
+    getList(state) {
+      const that = this;
+      return function (boardId: string, listId: string) {
+        const board = that.getBoard(boardId);
+        if (board) {
+          return board.lists.find(({ id }) => listId === id);
+        }
+      };
+    },
+
+    getTask(state) {
+      const that = this;
+      return function (boardId: string, listId: string, taskId: string) {
+        const list = that.getList(boardId, listId);
+        if (list) {
+          return list.tasks.find(({ id }) => taskId === id);
+        }
+      };
+    },
   },
 
   actions: {
@@ -188,14 +218,14 @@ export const useKanbanStore = defineStore("kanban", {
 
     removeBoard(boardId: string) {
       const index = this.boards.findIndex(({ id }) => boardId === id);
-      if (index != -1) {
+      if (index !== -1) {
         this.boards.splice(index, 1);
       }
     },
 
     changeBoard(board: Board) {
       const index = this.boards.findIndex(({ id }) => board.id === id);
-      if (index != -1) {
+      if (index !== -1) {
         this.boards[index] = board;
       }
     },

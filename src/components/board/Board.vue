@@ -1,7 +1,7 @@
 <template>
-  <v-container>
-    <div class="text-h4 my-4 font-weight-bold">
-      <div class="d-flex align-center ga-2">
+  <v-container class="position-relative mt-4">
+    <div class="text-h4 font-weight-bold">
+      <div class="d-flex align-center ga-2 mb-8">
         <v-icon
           class="cursor-pointer"
           color="on-background"
@@ -20,6 +20,11 @@
         <List :list="list" />
       </v-col>
       <AddList />
+    </v-row>
+
+    <v-row class="position-absolute right-0 top-0 d-flex">
+      <EditBoard :board="board" />
+      <RemoveBoard :board="board" />
     </v-row>
   </v-container>
 </template>
