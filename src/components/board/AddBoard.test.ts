@@ -59,10 +59,7 @@ describe("AddBoard", () => {
     const button = screen.getByText(/add/i);
     await fireEvent.click(button);
     const name = screen.getByLabelText(/name/i);
-    await fireEvent.update(
-      name,
-      "looooooooooooooooooooooooooooooooooooooooong"
-    );
+    await fireEvent.update(name, "l".repeat(300));
     const btn = screen.getByText(/done/i);
     await fireEvent.click(btn);
     const warningText = screen.getByText(/characters/i);

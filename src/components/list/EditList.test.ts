@@ -74,11 +74,8 @@ describe("EditList", () => {
   it("should not change list if name is too long", async () => {
     const screen = await wrap();
     const input = screen.getByLabelText(/name/i);
-    // looooooooooong string is invalid
-    await fireEvent.update(
-      input,
-      "loooooooooooooooooooooooooooooooooooooooong"
-    );
+    // string is too long
+    await fireEvent.update(input, "l".repeat(300));
     const doneBtn = screen.getByText(/done/i);
     await fireEvent.click(doneBtn);
     const warningText = screen.getByText(/characters/i);

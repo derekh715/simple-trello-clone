@@ -219,7 +219,6 @@ export const useKanbanStore = defineStore("kanban", {
       const items = findListIndex(this.boards, boardId, newList.id);
       if (items) {
         const { listIndex, board } = items;
-        board.lists.splice(listIndex, 1);
         board.lists[listIndex] = newList;
       }
     },

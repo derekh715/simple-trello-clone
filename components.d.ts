@@ -7,21 +7,16 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    '[id]': typeof import('./src/components/boards/[id].vue')['default']
     AddBoard: typeof import('./src/components/board/AddBoard.vue')['default']
     AddList: typeof import('./src/components/list/AddList.vue')['default']
     AddTask: typeof import('./src/components/task/AddTask.vue')['default']
     AppBar: typeof import('./src/components/AppBar.vue')['default']
     Board: typeof import('./src/components/board/Board.vue')['default']
-    'Board.test': typeof import('./src/components/Board.test.vue')['default']
     BoardCard: typeof import('./src/components/board/BoardCard.vue')['default']
     BoardCards: typeof import('./src/components/board/BoardCards.vue')['default']
-    Boards: typeof import('./src/components/Boards.vue')['default']
-    DeleteBoard: typeof import('./src/components/DeleteBoard.vue')['default']
     EditBoard: typeof import('./src/components/board/EditBoard.vue')['default']
     EditList: typeof import('./src/components/list/EditList.vue')['default']
     EditTask: typeof import('./src/components/task/EditTask.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     List: typeof import('./src/components/list/List.vue')['default']
     RemoveBoard: typeof import('./src/components/board/RemoveBoard.vue')['default']
     RemoveList: typeof import('./src/components/list/RemoveList.vue')['default']

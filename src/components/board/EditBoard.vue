@@ -12,7 +12,7 @@
           label="Name of Board"
           variant="outlined"
           maxlength="30"
-          :rules="[rules.required, rules.max(30)]"
+          :rules="[rules.required, rules.max()]"
           v-model="nameModel"
           class="my-4"
         ></v-text-field>

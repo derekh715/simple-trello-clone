@@ -13,7 +13,7 @@
             label="Name of List"
             variant="outlined"
             v-model="nameModel"
-            :rules="[rules.required, rules.max(30)]"
+            :rules="[rules.required, rules.max()]"
             maxlength="30"
             class="my-4"
           ></v-text-field>

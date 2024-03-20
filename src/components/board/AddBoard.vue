@@ -13,7 +13,7 @@
           variant="outlined"
           v-model="nameModel"
           maxlength="30"
-          :rules="[rules.required, rules.max(30)]"
+          :rules="[rules.required, rules.max()]"
           class="my-4"
         ></v-text-field>
         <v-textarea

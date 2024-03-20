@@ -2,7 +2,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { beforeEach, describe, expect, it } from "vitest";
 import { Board, List, Task, useKanbanStore } from "./kanban";
 
-const expectedBoard: Omit<Board, "id" | "lists"> = {
+const expectedBoard: Omit<Board, "id" | "lists" | "created"> = {
   description: "hello world",
   name: "hello",
 };
@@ -11,7 +11,7 @@ function createBoard(kanban: ReturnType<typeof useKanbanStore>) {
   return kanban.addBoard(expectedBoard);
 }
 
-const expectedList: Omit<List, "id" | "tasks"> = {
+const expectedList: Omit<List, "id" | "tasks" | "created"> = {
   description: "hello list",
   name: "list",
 };
@@ -20,7 +20,7 @@ function createList(kanban: ReturnType<typeof useKanbanStore>, board: Board) {
   return kanban.addList(board.id, expectedList);
 }
 
-const expectedTask: Omit<Task, "id"> = {
+const expectedTask: Omit<Task, "id" | "created"> = {
   name: "task",
   status: "unfinished",
   description: "hello task",
@@ -88,6 +88,8 @@ describe("list", async () => {
     const kanban = useKanbanStore();
     const newBoard = createBoard(kanban);
     const newList = createList(kanban, newBoard)!;
+    createList(kanban, newBoard);
+    createList(kanban, newBoard);
     const changedList: List = { ...newList, name: "changed" };
     kanban.changeList(newBoard.id, changedList);
     expect(kanban.boards[0].lists[0].name).toBe("changed");

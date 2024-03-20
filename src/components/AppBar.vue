@@ -3,14 +3,14 @@
     <v-app-bar-title
       class="font-weight-bold cursor-pointer"
       @click="router.push('/')"
-      >Trello Clone</v-app-bar-title
+      >(Simple) Trello Clone</v-app-bar-title
     >
-    <v-btn icon>
+    <v-btn icon href="https://github.com/derekh715/simple-trello-clone">
       <v-icon>mdi-github</v-icon>
     </v-btn>
-    <v-btn icon class="me-4">
+    <!-- <v-btn icon class="me-4">
       <v-icon>mdi-login</v-icon>
-    </v-btn>
+    </v-btn> -->
   </v-app-bar>
 </template>
 
