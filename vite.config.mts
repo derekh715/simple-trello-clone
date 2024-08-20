@@ -20,7 +20,7 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   // for correct urls
-  base: process.env.NEED_BASE ? "/simple-trello-clone/" : "/",
+  base: process.env.NEED_BASE ? "/trello-clone/" : "/",
   plugins: [
     VueRouter(),
     Vue({
